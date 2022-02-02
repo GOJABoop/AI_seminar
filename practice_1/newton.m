@@ -1,4 +1,3 @@
-%clear all
 close all
 clc
 
@@ -8,12 +7,12 @@ fpp = @(x) 24*x -160;
 
 limiteInferior = 0;
 limiteSuperior = 10;
-xi = 2;
+xi = 5;
 valorInicial = xi;
 n = 10;
 
 for i = 1 : n
-   %Plot_2D(fp,xi,limiteInferior,limiteSuperior) %Gráfica
+   Plot_2D(fp,xi,limiteInferior,limiteSuperior) %Gráfica
    if fpp(xi) ~= 0
     xi = xi - (fp(xi)/fpp(xi));
    end
@@ -29,6 +28,8 @@ plot(xp,f(xp),'b-','LineWidth',3,'MarkerSize',12)
 plot(xp,fp(xp),'r-','LineWidth',2,'MarkerSize',12);
 plot(xp,fpp(xp),'g:','LineWidth',2,'MarkerSize',12);
 plot(xi,f(xi),'*r','LineWidth',3,'MarkerSize',12);
+legend({'f(x)','f''(x)','f''''(x)','óptimo'},'FontSize',15)
+title('Gráfica en 2D','FontSize',15)
 xlabel('x')
 ylabel('f(x)')
 
@@ -41,6 +42,7 @@ else
     disp(['Máximo en ' num2str(xi)])
 end
 
+
 function Plot_2D(f,x, limiteInferior, limiteSuperior)
     cla
     hold on
@@ -49,7 +51,6 @@ function Plot_2D(f,x, limiteInferior, limiteSuperior)
     xp = limiteInferior:0.01:limiteSuperior;
     plot(xp,f(xp),'b-','LineWidth',3,'MarkerSize',12)
     plot(x,f(x),'*r','LineWidth',3,'MarkerSize',12);
-
     xlabel('x')
     ylabel('f(x)')
 
