@@ -11,3 +11,6 @@
 #### Practice 3
 - Genetic algorithm
 - Elitist genetic algorithm
+
+#### Practice 4
+ - Evolutionary strategies: (1 + 1)-ES, (μ + 1)-ES, (μ + λ)-ES y (μ, λ)-ES
