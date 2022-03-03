@@ -13,4 +13,7 @@
 - Elitist genetic algorithm
 
 #### Practice 4
- - Evolutionary strategies: (1 + 1)-ES, (μ + 1)-ES, (μ + λ)-ES y (μ, λ)-ES
+- Evolutionary strategies: (1 + 1)-ES, (μ + 1)-ES, (μ + λ)-ES y (μ, λ)-ES
+
+#### Practice 5
+- Particle Swarm Optimization PSO
