@@ -2,16 +2,16 @@ clear all
 close all
 clc
 
-%f = @(x,y) (x-2).^2+(y-2).^2; %Sphere
-f = @(x,y) ((x.^2/4000)+(y.^2/4000)) - (cos(x).*cos(y/sqrt(2)))+1; %Griewank
+f = @(x,y) (x-2).^2+(y-2).^2; %Sphere
+%f = @(x,y) ((x.^2/4000)+(y.^2/4000)) - (cos(x).*cos(y/sqrt(2)))+1; %Griewank
 %f = @(x,y) 10*2 + x.^2 + y.^2 - 10*cos(2*pi*x) - 10*cos(2*pi*y); % Rastrigin
 %f = @(x,y) -((1+cos(12*sqrt(x.^2+y.^2)))./(0.5*(x.^2+y.^2)+2)); %Drop-Wave
 
 xl = [-5 -5]';
 xu = [5 5]';
 
-G = 150;
-N = 50;
+G = 300;
+N = 100;
 D = 2;
 
 

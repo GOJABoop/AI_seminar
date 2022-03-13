@@ -14,48 +14,69 @@ G = 150;
 N = 50;
 D = 2;
 
-wmax = 0.7;
-wmin = 0.01;
-
-c1 = 2;
-c2 = 2;
+F = 0.6; % o 1.2
+CR = 0.9; % o 0.6
 
 x = zeros(D,N);
-v = zeros(D,N);
 fit = zeros(1,N);
-xb = zeros(D,N);
 
-f_plot = zeros(1,G);
-
-for i =1:N
+for i=1:N
     x(:,i) = xl + (xu-xl).*rand(D,1);
-    v(:,i) = randn(D,1);
-    xb(:,i) = x(:,i);
     fit(i) = f(x(1,i),x(2,i));
 end
 
-for g=1:G
+f_plot = zeros(1,G);
+
+for n=1:G
     Plot_Contour(f,x,xl,xu);
 
     for i=1:N
-        fx = f(x(1,i),x(2,i));
-        if fx < fit(i)
-            xb(:,i) = x(:,i);
-            fit(i) = fx;
+        %mutación
+        r1 = i;
+        while r1 == i
+            r1 = randi([1,N]);
+        end
+        
+        r2 = r1;
+        while r2==r1 || r2==i
+            r2 = randi([1,N]);
+        end
+    
+        r3 = r2;
+        while r3==r2 || r3==r1 || r3==i
+            r3 = randi([1,N]);
+        end
+
+        v = x(:,r1) + F*(x(:,r1)-x(:,i)) + F*(x(:,r2)-x(:,3)); %r3?
+
+        %Recombinación
+        u = zeros(D,1);
+        j = randi([1,D]);
+        L = 1;
+
+        while rand() <= CR && L<=D
+            u(j) = v(j);
+            j = 1 + mod(j,D);
+            L = L +1;
+        end
+            
+
+        %Selección
+        fit_u = f(u(1),u(2));
+
+        if fit_u < fit(i)
+            x(:,i) = u;
+            fit(i) = fit_u;
         end
     end
-    [f_plot(g),ig] = min(fit);
-    w = wmax - (g/G)*(wmax-wmin);
-    for i=1:N
-        v(:,i) = w*v(:,i) + rand() * c1 * (xb(:,i)-x(:,i)) + rand() * c2 * (xb(:,ig)-x(:,i));
-        x(:,i) = x(:,i) + v(:,i);
-    end
+
+    f_plot(n) = fit(i);
 end
 
-[~,ig] = min(fit);
+[~,igb] = min(fit);
 
-Plot_Surf(f, xb,xl,xu)
-disp(['Mínimo global en: x=' num2str(xb(1,ig)) ' y=' num2str(xb(2,ig)) ', f(x,y)=' num2str(f(xb(1,ig),xb(2,ig)))])
+Plot_Surf(f,x,xl,xu)
+disp(['Mínimo global en: x=' num2str(x(1,igb)) ' y=' num2str(x(2,igb)) ', f(x,y)=' num2str(f(x(1,igb),x(2,igb)))])
 
 figure 
 hold on
