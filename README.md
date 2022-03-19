@@ -17,3 +17,12 @@
 
 #### Practice 5
 - Particle Swarm Optimization PSO
+
+### Practice 6
+- Diferential evolution, DE Best 1 Bin, DE Current to Rand 1 Exp
+
+### Practice 7
+- Artificial Bee Colony
+
+### Practice 8
+- Optimization Based on Teaching-Learning
