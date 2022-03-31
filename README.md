@@ -26,3 +26,6 @@
 
 ### Practice 8
 - Optimization Based on Teaching-Learning
+
+### Practice 9
+- Flower Pollination Algorithm
