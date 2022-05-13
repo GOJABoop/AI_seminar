@@ -42,68 +42,46 @@ D = 2;
 % xu = 10*ones(11,1);
 % D = 11;
 
-
 f = @(w) (1/(2*n))*sum((Y-(X*w)).^2);
 
 G = 150;
 N = 50;
 
-F = 0.6; % o 1.2
-CR = 0.9; % o 0.6
+w = 0.6;
+c1 = 2;
+c2 = 2;
 
 x = zeros(D,N);
+v = zeros(D,N);
 fit = zeros(1,N);
+xb = zeros(D,N);
+f_plot = zeros(1,G);
 
-for i=1:N
+for i =1:N
     x(:,i) = xl + (xu-xl).*rand(D,1);
+    v(:,i) = randn(D,1);
+    xb(:,i) = x(:,i);
     fit(i) = f(x(:,i));
 end
 
-for n=1:G
+for g=1:G
     for i=1:N
-        %mutación
-        r1 = i;
-        while r1 == i
-            r1 = randi([1,N]);
+        fx = f(x(:,i));
+        if fx < fit(i)
+            xb(:,i) = x(:,i);
+            fit(i) = fx;
         end
-        
-        r2 = r1;
-        while r2==r1 || r2==i
-            r2 = randi([1,N]);
-        end
-    
-        r3 = r2;
-        while r3==r2 || r3==r1 || r3==i
-            r3 = randi([1,N]);
-        end
-
-        v = x(:,r1) + F*(x(:,r2)-x(:,r3));
-
-        %Recombinación
-        u = zeros(D,1);
-
-        for j=1:D
-            r = rand;
-            if r<=CR
-                u(j) = v(j);
-            else
-                u(j) = x(j,i);
-            end
-        end
-
-        %Selección
-        fit_u = f(u);
-
-        if fit_u < fit(i)
-            x(:,i) = u;
-            fit(i) = fit_u;
-        end
+    end
+    [f_plot(g),ig] = min(fit);
+    for i=1:N
+        v(:,i) = w*v(:,i) + rand() * c1 * (xb(:,i)-x(:,i)) + rand() * c2 * (xb(:,ig)-x(:,i));
+        x(:,i) = x(:,i) + v(:,i);
     end
 end
 
-[~,igb] = min(fit);
+[~,ig] = min(fit);
 
-w = x(:,igb);
+w = x(:,ig);
 disp([' Coeficientes: w = [' num2str(w') ']'])
 disp(['f(w) = ' num2str(f(w))])
 
@@ -130,8 +108,8 @@ disp([' R2 score = ' num2str(R2)])
 % disp('Precio estimado de casa con 2 baños, area de 7 y espacio vital de 1.5, ') 
 % disp('2 cocheras, 4 habitaciones, 4 dormitorios con 30 y 3 años de edad')
 % disp([' y construcción respectivamente, arquitectura tipo 1 y 1 chimenea= ' num2str(y)])
-
-%return 
+% 
+% return 
 
 figure
 hold on
