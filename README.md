@@ -29,3 +29,10 @@
 
 ### Practice 9
 - Flower Pollination Algorithm
+
+### Practice 10
+- Penalties Functions
+
+### Excersices
+- 1) Solution to Systems of Linear Equations
+- 2) Linear Regression
